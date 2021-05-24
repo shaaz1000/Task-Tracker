@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import {Text,View,Dimensions,StatusBar, ScrollView} from "react-native"
 import { Appbar,IconButton, Colors,FAB, Portal, Provider } from 'react-native-paper';
+import {connect} from "react-redux"
 const {width,height} = Dimensions.get("window")
 const CustomHeader = () => {
     const [selectedLanguage, setSelectedLanguage] = useState("Select Language");
@@ -35,10 +36,12 @@ const CustomHeader = () => {
     )
 }
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation,jobReducer}) => {
     const [state, setState] = useState({ open: false });
     const onStateChange = ({ open }) => setState({ open });
     const { open } = state;
+
+    console.log(jobReducer,"dd")
     return(
         <>
         <StatusBar backgroundColor="blue" barStyle="light-content"/>
@@ -85,6 +88,9 @@ const HomeScreen = ({navigation}) => {
     )
 }
 
+// pass 2 things to connect mapStateToProps && mapDispatchToProps
 
-
-export default HomeScreen
+const mapStateToProps = state => ({
+  jobReducer : state.jobReducer.jobInfo
+})
+export default connect(mapStateToProps)(HomeScreen)

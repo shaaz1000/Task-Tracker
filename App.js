@@ -9,10 +9,12 @@ import HomeScreen from "./source/screens/HomeScreen"
 import ProfileScreen from "./source/screens/ProfileScreen"
 import UpdateScreen from "./source/screens/UpdateScreen"
 import ExpenseFormScreen from "./source/screens/expenseFormScreen"
-
+import {Provider} from "react-redux"
+import store from "./source/redux/store/index"
 const Stack = createStackNavigator()
 const App = () => {
   return(
+    <Provider store={store}>
     <NavigationContainer>
      <Stack.Navigator headerMode="none" initialRouteName="Home">
            <Stack.Screen name="Login" component={LoginScreen}/>  
@@ -23,6 +25,7 @@ const App = () => {
             <Stack.Screen name="Expense Form" component={ExpenseFormScreen}/>
         </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   )
 }
 
