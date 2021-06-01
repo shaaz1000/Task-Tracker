@@ -9,10 +9,22 @@ const ExpenseFormScreen = ({navigation}) => {
     const [Name,setName] = useState("")
     const [Price,setPrice] = useState("")
     const [Note,setNote] = useState("")
+    const [DisplayDate,setDisplayDate] = useState()
     const PresentDate = moment().format("D-MM-YYYY")
     const AddDays = moment().add(CurrentCount,"days").format("D-MM-YYYY")
-    const SubDays = moment().subtract(CurrentCount,"days").format("D-MM-YYYY")
+    const [SubDays,setSubDays] = useState()
     console.log(AddDays,"Dayssss",PresentDate,"pr")
+
+    const MinusDate = (numberOfDays) => {
+        if(numberOfDays < 0 || numberOfDays > 0){
+            setSubDays(moment().subtract(numberOfDays,"days").format("D-MM-YYYY"))
+            console.log(SubDays,"line 21")
+        }
+    }
+
+    const PlusDate = (numberOfDays) => {
+        console.log(numberOfDays,"line 23")
+    }
     return(
         <>
         <Appbar.Header statusBarHeight={10} style={{backgroundColor:"blue"}}>
@@ -23,24 +35,28 @@ const ExpenseFormScreen = ({navigation}) => {
     <ScrollView showsVerticalScrollIndicator={false}>
     <Text style={styles.labelStyle}>Date</Text>
         <View style={{flexDirection:"row"}}>
-            {
-                CurrentCount > 0 ?
+            {/* {
+                CurrentCount > 0 ? */}
                 
                 <Text style={styles.dateStyle}>{SubDays}</Text>
-                :
+                {/* :
                 <Text style={styles.dateStyle}>{PresentDate}</Text>
-            }
-            
+            } */}
+            {/* <Text style={styles.dateStyle}>{DisplayDate}</Text> */}
             <TouchableOpacity 
                 style={{marginLeft:10,}}
                 onPress={()=>{
-                    setCurrentCount(CurrentCount + 1)
+                    PlusDate(CurrentCount + 1)
                 }}
             >
                 <Text style={{color:"white",height:50,width:50,borderRadius:25,backgroundColor:"red",fontSize:40,textAlign:"center"}}>+</Text>
             </TouchableOpacity>
             <TouchableOpacity style={{marginLeft:10,}}
-                onPress={()=>setCurrentCount(CurrentCount + 1)}
+                onPress={()=>{
+                    
+                    
+                    MinusDate(CurrentCount+1)
+                }}
             >
                 <Text style={{color:"white",height:50,width:50,borderRadius:25,backgroundColor:"green",fontSize:40,textAlign:"center"}}>-</Text>
             </TouchableOpacity>
